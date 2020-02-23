@@ -8,69 +8,68 @@ import connectFlash from "connect-flash";
 import configSession from "./config/session";
 import passport from "passport";
 
-import pem from "pem";
-import https from "https";
-
-pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
-  if (err) {
-    throw err;
-  }
+// import pem from "pem";
+// import https from "https";
+// pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+//   if (err) {
+//     throw err;
+//   }
   
-  // Init app
-  let app = express();
+//   // Init app
+//   let app = express();
 
-  // connect to mongodb
-  ConnectDB();
+//   // connect to mongodb
+//   ConnectDB();
 
-  // Config session
-  configSession(app);
+//   // Config session
+//   configSession(app);
 
-  // config view engine
-  configViewEngine(app);
+//   // config view engine
+//   configViewEngine(app);
 
-  // enable post data for request
-  app.use(bodyParser.urlencoded({extended: true}));
+//   // enable post data for request
+//   app.use(bodyParser.urlencoded({extended: true}));
 
-  // Enable flash messages
-  app.use(connectFlash());
+//   // Enable flash messages
+//   app.use(connectFlash());
 
-  // config passport js
-  app.use(passport.initialize());
-  app.use(passport.session());
+//   // config passport js
+//   app.use(passport.initialize());
+//   app.use(passport.session());
 
-  // init all routes
-  initRoutes(app);
+//   // init all routes
+//   initRoutes(app);
  
-  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.PORT, process.env.HOSTNAME, () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
-  });
-})
+//   https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.PORT, process.env.HOSTNAME, () => {
+//     console.log(`Server listening on port ${process.env.PORT}`);
+//   });
+// })
 
-// // Init app
-// let app = express();
+// Init app
+let app = express();
 
-// // connect to mongodb
-// ConnectDB();
+// connect to mongodb
+ConnectDB();
 
-// // Config session
-// configSession(app);
+// Config session
+configSession(app);
 
-// // config view engine
-// configViewEngine(app);
+// config view engine
+configViewEngine(app);
 
-// // enable post data for request
-// app.use(bodyParser.urlencoded({extended: true}));
+// enable post data for request
+app.use(bodyParser.urlencoded({extended: true}));
 
-// // Enable flash messages
-// app.use(connectFlash());
+// Enable flash messages
+app.use(connectFlash());
 
-// // config passport js
-// app.use(passport.initialize());
-// app.use(passport.session());
+// config passport js
+app.use(passport.initialize());
+app.use(passport.session());
 
-// // init all routes
-// initRoutes(app);
+// init all routes
+initRoutes(app);
 
-// app.listen(process.env.PORT, process.env.HOSTNAME, () => {
-//   console.log(`Server listening on port ${process.env.PORT}`);
-// });
+app.listen(process.env.PORT, process.env.HOSTNAME, () => {
+  console.log(`Server listening on port ${process.env.PORT}`);
+});
