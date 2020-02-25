@@ -69,6 +69,10 @@ UserSchema.statics = {
 
   updateUser(id, item) {
     return this.findByIdAndUpdate(id, item).exec(); // return old item affter updated
+  },
+
+  updatePassword(id, hashedPassword) {
+    return this.findByIdAndUpdate(id, {"local.password": hashedPassword}).exec();
   }
 };
 
